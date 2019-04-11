@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../stylesheets/App.scss';
-import { css } from '@emotion/core';
-import { PacmanLoader } from 'react-spinners';
+import {Loading} from './Loading';
 
 class App extends Component {
 
@@ -16,7 +15,7 @@ class App extends Component {
   componentDidMount() {
     fetch('https://pokeapi.co/api/v2/pokemon') // returns a response which contains json
       .then(
-        response => response.json() // returns javascript objects (from json)
+        response => response.json() // returns javascript objects (from json in response body)
       ).then(
         data => {
           this.setState(
@@ -31,22 +30,17 @@ class App extends Component {
 
   render() {
 
-    let pokemonComponentList = this.state.pokemonData.map(
-      pokemon => <div>{pokemon.name}</div>
+    let pokemonComponentList = this.state.pokemonData.sort(
+      (a,b) => (a.name > b.name) ? 1 : -1
+    ).map(
+      // react wants a list of identical components
+      // to have a unique key property to differentiate them
+      (pokemon, index) => <div key={index}>{pokemon.name}</div>
     )
 
     return (
       <div className="app">
-        {this.state.loading && //short circuit
-          <div className="loader">
-            <PacmanLoader
-              sizeUnit={"px"}
-              size={50}
-              color={'#123abc'}
-              loading={this.state.loading}
-            />
-          </div>
-        }
+        <Loading visible={this.state.loading} />
         {pokemonComponentList}
       </div>
     )
