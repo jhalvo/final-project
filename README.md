@@ -1,12 +1,18 @@
-Switch branch to see the phases of development: Boilerplate
+Switch branch to see the phases of development: boilerplate, step-1, step-2
 
 From the project root...
 
 Install dependencies:
-### yarn install
+```bash
+yarn install
+```
 
 Start server:
-### yarn start
+```bash
+yarn start
+```
 
 Stop server:
-### ctrl+c
+```bash
+ctrl+c
+```
